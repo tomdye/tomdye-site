@@ -1,0 +1,29 @@
+{
+	"build-app": {
+		"build-time-render": {
+			"root": "app",
+			"static": true,
+			"renderer": "jsdom"			
+		},
+		"pwa": {
+			"manifest": {
+				"name": "tomdye.co.uk",
+				"short_name": "tomdye.co.uk",
+				"description": "tomdye.co.uk",
+				"background_color": "#ffffff",
+				"theme_color": "#01B9F1",
+				"icons": [
+					{
+						"src": "src/favicon.png",
+						"sizes": [
+							16,
+							192,
+							512
+						]
+					}
+				]
+			}
+		}
+	},
+	"create-app": {}
+}

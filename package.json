@@ -1,0 +1,36 @@
+{
+	"name": "tomdye-site",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "dojo build --mode dev --watch --serve",
+		"build": "dojo build --mode dist",
+		"build:dev": "dojo build --mode dev",
+		"prettier": "prettier --write \"src/**/*.{ts,tsx,css,html}\""
+	},
+	"dependencies": {
+		"@dojo/framework": "~7.0.1",
+		"tslib": "~1.9.1"
+	},
+	"devDependencies": {
+		"@dojo/cli": "~7.0.1",
+		"@dojo/cli-build-app": "~7.0.1",
+		"@types/node": "~9.6.5",
+		"husky": "4.2.5",
+		"prettier": "2.0.5",
+		"pretty-quick": "^2.0.1",
+		"typescript": "~3.9.5"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	},
+	"prettier": {
+		"singleQuote": true,
+		"tabWidth": 4,
+		"useTabs": true,
+		"printWidth": 100,
+		"arrowParens": "always",
+		"trailingComma": "none"
+	}
+}
