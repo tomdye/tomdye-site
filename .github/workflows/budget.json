@@ -11,7 +11,7 @@
       },
       {
         "metric": "first-meaningful-paint",
-        "budget": 2000
+        "budget": 800
       }
     ],
     "resourceSizes": [
