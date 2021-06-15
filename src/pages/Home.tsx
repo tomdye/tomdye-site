@@ -9,7 +9,7 @@ export const Home = factory(function Home() {
 			<head>
 				<title>Tom Dye</title>
 			</head>
-			<h1>Hello, World, testerer</h1>
+			<h1>Hello, World, wfqawwfqwf</h1>
 		</div>
 	);
 });
