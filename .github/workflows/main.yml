@@ -27,10 +27,10 @@ jobs:
               id: lighthouse_audit
               uses: treosh/lighthouse-ci-action@v7
               with:
-                  urls: 'https://tomdye-site-qsnjg8ya6-tomdye1.vercel.app/'
-                  # urls: |
-                  #     ${{ steps.vercel_action.outputs.preview-url }}
+                  urls: |
+                      ${{ steps.vercel_action.outputs.preview-url }}
                   budgetPath: '.github/lighthouse/budget.json'
+                  configPath: '.github/lighthouse/lighthouserc.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
             - name: Format lighthouse score
