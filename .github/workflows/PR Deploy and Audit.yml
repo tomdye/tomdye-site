@@ -1,4 +1,4 @@
-name: Deploy and Audit
+name: PR Deploy and Audit
 on: [pull_request]
 jobs:
     deploy:
