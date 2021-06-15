@@ -31,7 +31,7 @@ jobs:
                       https://tomdye-site-qsnjg8ya6-tomdye1.vercel.app/
                   # urls: |
                   #     ${{ steps.vercel_action.outputs.preview-url }}
-                  budgetPath: ./budget.json
+                  budgetPath: '.github/workflows/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
             - name: Format lighthouse score
