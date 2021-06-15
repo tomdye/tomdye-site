@@ -1,46 +1,31 @@
 [
-  {
-    "path": "/*",
-    "options": {
-       "firstPartyHostnames": ["*.my-site.com", "my-site.cdn.com"]
-    },
-    "timings": [
-      {
-        "metric": "interactive",
-        "budget": 5000
-      },
-      {
-        "metric": "first-meaningful-paint",
-        "budget": 800
-      }
-    ],
-    "resourceSizes": [
-      {
-        "resourceType": "total",
-        "budget": 500
-      },
-      {
-        "resourceType": "script",
-        "budget": 150
-      }
-    ],
-    "resourceCounts": [
-      {
-        "resourceType": "third-party",
-        "budget": 100
-      }
-    ]
-  },
-  {
-    "options": {
-       "firstPartyHostnames": ["*.my-site.com", "my-site.cdn.com"]
-    },
-    "path": "/checkout",
-    "resourceSizes": [
-      {
-        "resourceType": "script",
-        "budget": 200
-      }
-    ]
-  }
+	{
+		"path": "/*",
+		"timings": [
+			{
+				"metric": "interactive",
+				"budget": 3000
+			},
+			{
+				"metric": "first-meaningful-paint",
+				"budget": 1000
+			}
+		],
+		"resourceSizes": [
+			{
+				"resourceType": "script",
+				"budget": 125
+			},
+			{
+				"resourceType": "total",
+				"budget": 300
+			}
+		],
+		"resourceCounts": [
+			{
+				"resourceType": "third-party",
+				"budget": 10
+			}
+		]
+	}
 ]
