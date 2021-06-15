@@ -24,6 +24,7 @@ jobs:
                   message: |
                       Running Lighthouse audit...
             - name: Audit URLs using Lighthouse
+              id: lighthouse_audit
               uses: treosh/lighthouse-ci-action@v7
               with:
                   urls: |
