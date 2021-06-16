@@ -27,10 +27,11 @@ jobs:
               uses: treosh/lighthouse-ci-action@v7
               with:
                   urls: |
-                      ${{ steps.vercel_action.outputs.preview-url }}
+                      https://tomdye-site-n40eyd69z-tomdye1.vercel.app/
                   budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
+                  runs: 3
               env:
                   LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}
                   LHCI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -73,3 +74,4 @@ jobs:
                   header: lighthouse
                   message: |
                       ${{ steps.format_lighthouse_score.outputs.comment }}
+                  #   ${{ steps.vercel_action.outputs.preview-url }}
