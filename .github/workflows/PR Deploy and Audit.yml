@@ -21,7 +21,7 @@ jobs:
                   number: ${{ github.event.pull_request.number }}
                   header: lighthouse
                   message: |
-                      Running Lighthouse audit...
+                      🚦 Running Lighthouse audit...
             - name: Add comment to PR
               id: loading_budget_comment_to_pr
               uses: marocchino/sticky-pull-request-comment@v2
@@ -30,7 +30,7 @@ jobs:
                   number: ${{ github.event.pull_request.number }}
                   header: budget
                   message: |
-                      Running budget checks...
+                      ⏱ Running budget checks...
             - name: Audit URLs using Lighthouse
               id: lighthouse_audit
               uses: treosh/lighthouse-ci-action@v7
@@ -90,9 +90,9 @@ jobs:
                           **${result.auditTitle}**
                           [${result.auditDocumentationLink}](${result.auditDocumentationLink})
 
-                          **expected:** ${result.operator} ${result.expected}
-                             **found:** ${result.actual}
-
+                          | Actual | Expected |
+                          | --- | --- |
+                          | ${result.actual} | ${result.operator} ${result.expected} |
                           `;
                         }).join('---\n');
 
