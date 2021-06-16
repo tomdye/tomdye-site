@@ -42,8 +42,8 @@ jobs:
                   uploadArtifacts: true
                   temporaryPublicStorage: true
                   runs: 3
-            - name: Format success lighthouse score
-              id: success_lighthouse_score
+            - name: Format lighthouse result
+              id: lighthouse_result
               if: ${{ always() }}
               uses: actions/github-script@v4
               with:
@@ -73,17 +73,21 @@ jobs:
                       }).join('---');
 
                       core.setOutput("comment", comment);
-            - name: Format Error lighthouse score
-              id: error_budget_score
+            - name: Format budget result
+              id: budget_result
               if: ${{ always() }}
               uses: actions/github-script@v4
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
                   script: |
-                      console.log('CANCELLED');
-                      console.log(${{ steps.lighthouse_audit.outputs.assertionResults }})
-            - name: Add comment to PR
-              id: comment_to_pr
+                      const assertions = ${{ steps.lighthouse_audit.outputs.assertionResults }};
+                      if (!assertions.length) {
+                        core.setOutput("comment", '✅ Budget met, nothing to see here');
+                      } else {
+                        console.log('assertions: ', assertions);
+                      }
+            - name: Add Lighthouse comment to PR
+              id: lighthouse_comment_to_pr
               if: ${{ always() }}
               uses: marocchino/sticky-pull-request-comment@v1
               with:
@@ -91,5 +95,15 @@ jobs:
                   number: ${{ github.event.pull_request.number }}
                   header: lighthouse
                   message: |
-                      ${{ steps.success_lighthouse_score.outputs.comment }}
+                      ${{ steps.lighthouse_result.outputs.comment }}
+            - name: Add Budget comment to PR
+              id: budget_comment_to_pr
+              if: ${{ always() }}
+              uses: marocchino/sticky-pull-request-comment@v1
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  number: ${{ github.event.pull_request.number }}
+                  header: budget
+                  message: |
+                      ${{ steps.budget_result.outputs.comment }}
                   #   ${{ steps.vercel_action.outputs.preview-url }}
