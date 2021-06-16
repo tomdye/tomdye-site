@@ -33,7 +33,6 @@ jobs:
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
                   script: |
-                      console.log('SUCCESS');
                       const links = ${{ steps.lighthouse_audit.outputs.links }}
                       const results = (${{ steps.lighthouse_audit.outputs.manifest }}).filter(result => result.isRepresentativeRun);
 
@@ -43,7 +42,6 @@ jobs:
                       const comment = results.map((result) => {
                         const summary = result.summary;
                         const url = result.url;
-                        console.log(`summary: ${summary}, url: ${url}`);
 
                         return `⚡️ [Lighthouse report](${links[url]}) for the changes in this PR:
 
@@ -57,7 +55,7 @@ jobs:
 
                           *Lighthouse ran on [${url}](${url})*
                         `;
-                      }).join('`n`n');
+                      }).join('\n\n');
 
                       core.setOutput("comment", comment);
             - name: Format Error lighthouse score
