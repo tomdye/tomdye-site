@@ -47,13 +47,15 @@ jobs:
                         🌎 [${url}](${url})
                         ⚡️ [Lighthouse report](${links[url]})
 
-                          | Category | Score |
-                          | --- | --- |
-                          | ${score(summary.performance)} Performance | ${summary.performance} |
-                          | ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |
-                          | ${score(summary['best-practices'])} Best practices | ${summary['best-practices']} |
-                          | ${score(summary.seo)} SEO | ${summary.seo} |
-                          | ${score(summary.pwa)} PWA | ${summary.pwa} |
+                        | Category | Score |
+                        | --- | --- |
+                        | ${score(summary.performance)} Performance | ${summary.performance} |
+                        | ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |
+                        | ${score(summary['best-practices'])} Best practices | ${summary['best-practices']} |
+                        | ${score(summary.seo)} SEO | ${summary.seo} |
+                        | ${score(summary.pwa)} PWA | ${summary.pwa} |
+
+                        ---
 
                         `;
                       }).join('');
