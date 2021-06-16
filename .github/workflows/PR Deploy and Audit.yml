@@ -42,15 +42,6 @@ jobs:
                   uploadArtifacts: true
                   temporaryPublicStorage: true
                   runs: 3
-            - name: Format Error lighthouse score
-              id: error_budget_score
-              if: ${{ cancelled() }}
-              uses: actions/github-script@v4
-              with:
-                  github-token: ${{secrets.GITHUB_TOKEN}}
-                  script: |
-                      console.log('CANCELLED');
-                      console.log(${{ steps.lighthouse_audit.outputs.assertionResults }})
             - name: Format success lighthouse score
               id: success_lighthouse_score
               if: ${{ always() }}
@@ -82,6 +73,15 @@ jobs:
                       }).join('---');
 
                       core.setOutput("comment", comment);
+            - name: Format Error lighthouse score
+              id: error_budget_score
+              if: ${{ always() }}
+              uses: actions/github-script@v4
+              with:
+                  github-token: ${{secrets.GITHUB_TOKEN}}
+                  script: |
+                      console.log('CANCELLED');
+                      console.log(${{ steps.lighthouse_audit.outputs.assertionResults }})
             - name: Add comment to PR
               id: comment_to_pr
               if: ${{ always() }}
