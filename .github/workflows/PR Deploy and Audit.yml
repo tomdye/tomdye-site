@@ -59,11 +59,10 @@ jobs:
 
                         | Category | Score |
                         | --- | --- |
-                        | ${score(summary.performance)} Performance | ${summary.performance} |
-                        | ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |
-                        | ${score(summary['best-practices'])} Best practices | ${summary['best-practices']} |
-                        | ${score(summary.seo)} SEO | ${summary.seo} |
-                        | ${score(summary.pwa)} PWA | ${summary.pwa} |
+                        ${Object.values(summary).map((key) => {
+                          const percentage = Math.round(summary[key] * 100);
+                          return `| ${score(percentage)} ${key} | ${percentage} |`;
+                        })}
 
                         `;
                       }).join('---');
