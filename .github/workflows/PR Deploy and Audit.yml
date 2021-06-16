@@ -28,7 +28,7 @@ jobs:
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   number: ${{ github.event.pull_request.number }}
-                  header: budgets
+                  header: budget
                   message: |
                       Running budget checks...
             - name: Audit URLs using Lighthouse
