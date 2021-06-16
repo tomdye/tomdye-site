@@ -27,80 +27,54 @@ jobs:
             #   env:
             #       LHCI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Format success lighthouse score
-              id: format_lighthouse_score
-              if: ${{ success() }}
+              id: success_lighthouse_score
+              if: ${{ always() }}
               uses: actions/github-script@v4
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
                   script: |
                       console.log('SUCCESS');
-                      console.log(${{ steps.lighthouse_audit.outputs.manifest }})
-                      console.log(${{ steps.lighthouse_audit.outputs.assertionResults }})
-                      const result = ${{ steps.lighthouse_audit.outputs.manifest }}[1].summary
-
                       const links = ${{ steps.lighthouse_audit.outputs.links }}
-
+                      console.log('links: ', links);
+                      const results = ${{ steps.lighthouse_audit.outputs.manifest }}.filter(result => result.isRepresentativeRun);
                       const formatResult = (res) => Math.round((res * 100));
-
-                      Object.keys(result).forEach(key => result[key] = formatResult(result[key]));
-
                       const score = res => res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴'
 
-                      const comment = [
-                          `⚡️ [Lighthouse report](${Object.values(links)[0]}) for the changes in this PR:`,
-                          '| Category | Score |',
-                          '| --- | --- |',
-                          `| ${score(result.performance)} Performance | ${result.performance} |`,
-                          `| ${score(result.accessibility)} Accessibility | ${result.accessibility} |`,
-                          `| ${score(result['best-practices'])} Best practices | ${result['best-practices']} |`,
-                          `| ${score(result.seo)} SEO | ${result.seo} |`,
-                          `| ${score(result.pwa)} PWA | ${result.pwa} |`,
-                          ' ',
-                          `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`
-                      ].join('\n')
+                      const comment = results.map((result) => {
+                        const summary = result.summary;
+                        const url = result.url;
+
+                        return `⚡️ [Lighthouse report](${result.htmlPath}) for the changes in this PR:
+
+                          | Category | Score |
+                          | --- | --- |
+                          | ${score(summary.performance)} Performance | ${summary.performance} |
+                          | ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |
+                          | ${score(summary['best-practices'])} Best practices | ${summary['best-practices']} |
+                          | ${score(summary.seo)} SEO | ${summary.seo} |
+                          | ${score(summary.pwa)} PWA | ${summary.pwa} |
+
+                          *Lighthouse ran on [${url}](${url})*`;
+                      }).join('`n`n');
 
                       core.setOutput("comment", comment);
             - name: Format Error lighthouse score
-              id: format_lighthouse_score
+              id: cancelled_lighthouse_score
               if: ${{ cancelled() }}
               uses: actions/github-script@v4
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
                   script: |
                       console.log('CANCELLED');
-                      console.log(${{ steps.lighthouse_audit.outputs.manifest }})
                       console.log(${{ steps.lighthouse_audit.outputs.assertionResults }})
-                      const result = ${{ steps.lighthouse_audit.outputs.manifest }}[1].summary
-
-                      const links = ${{ steps.lighthouse_audit.outputs.links }}
-
-                      const formatResult = (res) => Math.round((res * 100));
-
-                      Object.keys(result).forEach(key => result[key] = formatResult(result[key]));
-
-                      const score = res => res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴'
-
-                      const comment = [
-                          `⚡️ [Lighthouse report](${Object.values(links)[0]}) for the changes in this PR:`,
-                          '| Category | Score |',
-                          '| --- | --- |',
-                          `| ${score(result.performance)} Performance | ${result.performance} |`,
-                          `| ${score(result.accessibility)} Accessibility | ${result.accessibility} |`,
-                          `| ${score(result['best-practices'])} Best practices | ${result['best-practices']} |`,
-                          `| ${score(result.seo)} SEO | ${result.seo} |`,
-                          `| ${score(result.pwa)} PWA | ${result.pwa} |`,
-                          ' ',
-                          `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`
-                      ].join('\n')
-
-                      core.setOutput("comment", comment);
             - name: Add comment to PR
               id: comment_to_pr
+              if: ${{ always() }}
               uses: marocchino/sticky-pull-request-comment@v1
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   number: ${{ github.event.pull_request.number }}
                   header: lighthouse
                   message: |
-                      ${{ steps.format_lighthouse_score.outputs.comment }}
+                      ${{ steps.success.outputs.comment }}
                   #   ${{ steps.vercel_action.outputs.preview-url }}
