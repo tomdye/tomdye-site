@@ -51,6 +51,7 @@ jobs:
                       const comment = results.map((result) => {
                         const summary = result.summary;
                         const url = result.url;
+                        console.log(summary);
 
                         return `
                         🌎 [${url}](${url})
