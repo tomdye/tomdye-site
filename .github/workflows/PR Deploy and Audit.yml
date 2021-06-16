@@ -78,5 +78,5 @@ jobs:
                   number: ${{ github.event.pull_request.number }}
                   header: lighthouse
                   message: |
-                      ${{ steps.success.outputs.comment }}
+                      ${{ steps.success_lighthouse_score.outputs.comment }}
                   #   ${{ steps.vercel_action.outputs.preview-url }}
