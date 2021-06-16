@@ -35,16 +35,17 @@ jobs:
                   script: |
                       console.log('SUCCESS');
                       const links = ${{ steps.lighthouse_audit.outputs.links }}
-                      console.log('links: ', links);
-                      const results = ${{ steps.lighthouse_audit.outputs.manifest }}.filter(result => result.isRepresentativeRun);
+                      const results = (${{ steps.lighthouse_audit.outputs.manifest }}).filter(result => result.isRepresentativeRun);
+
                       const formatResult = (res) => Math.round((res * 100));
-                      const score = res => res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴'
+                      const score = res => res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴';
 
                       const comment = results.map((result) => {
                         const summary = result.summary;
                         const url = result.url;
+                        console.log(`summary: ${summary}, url: ${url}`);
 
-                        return `⚡️ [Lighthouse report](${result.htmlPath}) for the changes in this PR:
+                        return `⚡️ [Lighthouse report](${links[url]}) for the changes in this PR:
 
                           | Category | Score |
                           | --- | --- |
@@ -54,7 +55,8 @@ jobs:
                           | ${score(summary.seo)} SEO | ${summary.seo} |
                           | ${score(summary.pwa)} PWA | ${summary.pwa} |
 
-                          *Lighthouse ran on [${url}](${url})*`;
+                          *Lighthouse ran on [${url}](${url})*
+                        `;
                       }).join('`n`n');
 
                       core.setOutput("comment", comment);
