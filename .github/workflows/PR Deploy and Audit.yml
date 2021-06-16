@@ -29,12 +29,10 @@ jobs:
                   urls: |
                       ${{ steps.vercel_action.outputs.preview-url }}
                   budgetPath: '.github/lighthouse/budget.json'
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   uploadArtifacts: true
                   temporaryPublicStorage: true
-              env:
-                  PR_NUMBER: ${{ github.event.pull_request.number }}
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  env:
+                      LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}
             - name: Format lighthouse score
               id: format_lighthouse_score
               uses: actions/github-script@v4
