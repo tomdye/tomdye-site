@@ -85,16 +85,14 @@ jobs:
                         core.setOutput("comment", '✅ Budget met, nothing to see here');
                       } else {
                         const comment = assertions.map((result) => {
-                          return `❌ ${result.auditProperty || ''}.${result.auditId} failure
-                          🌎 [${result.url}](${result.url})
-                          **${result.auditTitle}**
-                          [${result.auditDocumentationLink}](${result.auditDocumentationLink})
+                          return `❌ **${result.auditProperty || ''}.${result.auditId}** failure on [${result.url}](${result.url})
+
+                          *${result.auditTitle}* - [docs](${result.auditDocumentationLink})
 
                       | Actual | Expected |
                       | --- | --- |
-                      | ${result.actual} | ${result.operator} ${result.expected} |
-                          `;
-                        }).join('---\n');
+                      | ${result.actual} | ${result.operator} ${result.expected} |`;
+                        }).join('---');
 
                         core.setOutput("comment", comment);
                       }
