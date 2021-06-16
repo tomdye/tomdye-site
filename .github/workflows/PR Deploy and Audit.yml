@@ -31,8 +31,8 @@ jobs:
                   budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
-                  env:
-                      LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}
+              env:
+                  LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}
             - name: Format lighthouse score
               id: format_lighthouse_score
               uses: actions/github-script@v4
