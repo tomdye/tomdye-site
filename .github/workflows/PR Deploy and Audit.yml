@@ -33,7 +33,6 @@ jobs:
                   temporaryPublicStorage: true
                   runs: 3
               env:
-                  LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}
                   LHCI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Format lighthouse score
               id: format_lighthouse_score
