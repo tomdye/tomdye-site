@@ -84,8 +84,19 @@ jobs:
                       if (!assertions.length) {
                         core.setOutput("comment", '✅ Budget met, nothing to see here');
                       } else {
-                        core.setOutput("comment", assertions);
-                        console.log('assertions: ', assertions);
+                        const comment = assertions.map((result) => {
+                          return `❌ ${result.auditProperty + '.'}${result.auditId} failure
+                          🌎 [${result.url}](${result.url})
+                          **${result.auditTitle}**
+                          [${result.auditDocumentationLink}](${result.auditDocumentationLink})
+
+                          **expected:** ${result.operator} ${result.expected}
+                             **found:** ${result.actual}
+
+                          `;
+                        }).join('---\n');
+
+                        core.setOutput("comment", comment);
                       }
             - name: Add Lighthouse comment to PR
               id: lighthouse_comment_to_pr
