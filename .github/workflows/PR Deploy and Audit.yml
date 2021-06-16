@@ -27,10 +27,11 @@ jobs:
               uses: treosh/lighthouse-ci-action@v7
               with:
                   urls: |
-                      https://sitepen.com
-                      https://sitepen.com/blog
-                      https://tomdye-site-n40eyd69z-tomdye1.vercel.app/
-                  budgetPath: '.github/lighthouse/budget.json'
+                      https://www.sitepen.com/
+                      https://www.sitepen.com/blog/
+                      https://www.sitepen.com/blog/simplify-angular-unit-test-authoring
+                  #   https://tomdye-site-n40eyd69z-tomdye1.vercel.app/
+                  #   budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
                   runs: 3
