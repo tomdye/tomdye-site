@@ -59,10 +59,10 @@ jobs:
 
                         | Category | Score |
                         | --- | --- |
-                        ${Object.values(summary).map((key) => {
+                        ${Object.keys(summary).map((key) => {
                           const percentage = Math.round(summary[key] * 100);
                           return `| ${score(percentage)} ${key} | ${percentage} |`;
-                        })}
+                        }).join('\n')}
 
                         `;
                       }).join('---');
