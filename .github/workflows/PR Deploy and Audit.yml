@@ -84,6 +84,7 @@ jobs:
                       if (!assertions.length) {
                         core.setOutput("comment", '✅ Budget met, nothing to see here');
                       } else {
+                        core.setOutput("comment", assertions);
                         console.log('assertions: ', assertions);
                       }
             - name: Add Lighthouse comment to PR
