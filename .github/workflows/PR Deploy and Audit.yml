@@ -43,7 +43,9 @@ jobs:
                         const summary = result.summary;
                         const url = result.url;
 
-                        return `⚡️ [Lighthouse report](${links[url]}) for the changes in this PR:
+                        return `
+                        🌎 [${url}](${url})
+                        ⚡️ [Lighthouse report](${links[url]})
 
                           | Category | Score |
                           | --- | --- |
@@ -53,9 +55,8 @@ jobs:
                           | ${score(summary.seo)} SEO | ${summary.seo} |
                           | ${score(summary.pwa)} PWA | ${summary.pwa} |
 
-                          *Lighthouse ran on [${url}](${url})*
                         `;
-                      }).join('\n\n');
+                      }).join('');
 
                       core.setOutput("comment", comment);
             - name: Format Error lighthouse score
