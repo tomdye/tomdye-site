@@ -21,8 +21,7 @@ jobs:
                       https://www.sitepen.com/
                       https://www.sitepen.com/blog/
                       https://www.sitepen.com/blog/simplify-angular-unit-test-authoring
-                  #   https://tomdye-site-n40eyd69z-tomdye1.vercel.app/
-                  #   budgetPath: '.github/lighthouse/budget.json'
+                  budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
                   runs: 3
