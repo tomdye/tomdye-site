@@ -92,7 +92,8 @@ jobs:
 
                       | Actual | Expected |
                       | --- | --- |
-                      | ${result.actual} | ${result.operator} ${result.expected} |`;
+                      | ${result.actual} | ${result.operator} ${result.expected} |
+                      `;
                         }).join('---');
 
                         core.setOutput("comment", comment);
