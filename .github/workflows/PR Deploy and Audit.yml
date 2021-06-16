@@ -27,13 +27,15 @@ jobs:
               uses: treosh/lighthouse-ci-action@v7
               with:
                   urls: |
+                      https://sitepen.com
+                      https://sitepen.com/blog
                       https://tomdye-site-n40eyd69z-tomdye1.vercel.app/
                   budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
                   runs: 3
-              env:
-                  LHCI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            #   env:
+            #       LHCI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Format lighthouse score
               id: format_lighthouse_score
               uses: actions/github-script@v4
