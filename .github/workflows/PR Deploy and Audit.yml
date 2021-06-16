@@ -20,11 +20,10 @@ jobs:
                   urls: |
                       https://www.sitepen.com/
                       https://www.sitepen.com/blog/
-                      https://www.sitepen.com/blog/simplify-angular-unit-test-authoring
                   budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
-                  runs: 3
+                  runs: 2
             #   env:
             #       LHCI_GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Format lighthouse score
@@ -34,6 +33,8 @@ jobs:
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
                   script: |
+                      console.log(${{ steps.lighthouse_audit.outputs.manifest }})
+                      console.log(${{ steps.lighthouse_audit.outputs.assertionResults }})
                       const result = ${{ steps.lighthouse_audit.outputs.manifest }}[1].summary
 
                       const links = ${{ steps.lighthouse_audit.outputs.links }}
