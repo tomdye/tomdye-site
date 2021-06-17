@@ -5,14 +5,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            # - name: Vercel Action
-            #   id: vercel_action
-            #   uses: amondnet/vercel-action@v20
-            #   with:
-            #       vercel-token: ${{ secrets.VERCEL_TOKEN }}
-            #       github-token: ${{ secrets.GITHUB_TOKEN }}
-            #       vercel-org-id: ${{ secrets.ORG_ID}}
-            #       vercel-project-id: ${{ secrets.PROJECT_ID}}
+            - name: Vercel Action
+              id: vercel_action
+              uses: amondnet/vercel-action@v20
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  vercel-org-id: ${{ secrets.ORG_ID}}
+                  vercel-project-id: ${{ secrets.PROJECT_ID}}
             - name: Add comment to PR
               id: loading_lighthouse_comment_to_pr
               uses: marocchino/sticky-pull-request-comment@v2
@@ -36,8 +36,7 @@ jobs:
               uses: treosh/lighthouse-ci-action@v7
               with:
                   urls: |
-                      https://www.sitepen.com/
-                      https://www.sitepen.com/blog/
+                      ${{ steps.vercel_action.outputs.preview-url }}
                   budgetPath: '.github/lighthouse/budget.json'
                   uploadArtifacts: true
                   temporaryPublicStorage: true
@@ -118,4 +117,3 @@ jobs:
                   header: budget
                   message: |
                       ${{ steps.budget_result.outputs.comment }}
-                  #   ${{ steps.vercel_action.outputs.preview-url }}
