@@ -6,6 +6,16 @@ const routes: RouteConfig[] = [
 		path: '/',
 		outlet: 'main',
 		defaultRoute: true
+	},
+	{
+		id: 'about',
+		path: '/about',
+		outlet: 'main'
+	},
+	{
+		id: 'blog',
+		path: '/blog',
+		outlet: 'main'
 	}
 ];
 
